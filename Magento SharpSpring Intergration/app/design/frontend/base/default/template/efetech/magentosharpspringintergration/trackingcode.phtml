@@ -1,0 +1,62 @@
+<?php if($enable = Mage::getStoreConfig('efetech/tracking_code/enable')): ?>
+<?php $account = Mage::getStoreConfig('efetech/general/account');?>
+
+    <script type='text/javascript'>
+    var _ss = _ss || [];
+    _ss.push(['_setDomain', 'https://app.sharpspring.com/net/']);
+    _ss.push(['_setAccount', 'KOI-<?php echo $account; ?>']);
+    _ss.push(['_setResponseCallback', callThisOnReturn]);
+    _ss.push(['_trackPageView']);
+
+    (function() {
+        var ss = document.createElement('script');
+        ss.type = 'text/javascript'; ss.async = true;
+        ss.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'koi-<?php echo $account; ?>.sharpspring.com' + '/client/ss.js';
+        var scr = document.getElementsByTagName('script')[0];
+        scr.parentNode.insertBefore(ss, scr);
+    })();
+
+    </script>
+
+    <?php
+    $sOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+    $oOrder = Mage::getModel('sales/order')->load($sOrderId);
+    $orderItems = $oOrder->getItemsCollection();
+    $oAddress = $oOrder->getShippingAddress();
+    $storeName = Mage::app()->getWebsite()->getName();
+    ?>
+    <script type='text/javascript'>
+
+    _ss.push(['_setTransaction', {
+        'transactionID': '<?php echo $sOrderId ?>',
+        'storeName': '<?php echo $storeName?>',
+        'total': '<?php echo $oOrder->getGrandTotal() ?>',
+        'tax': '<?php echo $oOrder->getTaxAmount(); ?>',
+        'shipping': '<?php echo $oOrder->getShippingAmount(); ?>',
+        'city': '<?php echo $oAddress->getCity(); ?>',
+        'state': '<?php echo $oAddress->getRegion(); ?>',
+        'zipcode': '<?php echo $oAddress->getPostcode(); ?>',
+        'country': '<?php echo $oAddress->getCountry(); ?>',
+        'firstName' : '<?php echo $oAddress->getFirstname(); ?>',
+        'lastName' : '<?php $oAddress->getLastname(); ?>',
+        'emailAddress' : '<?php echo $oOrder->getCustomerEmail(); ?>'
+    }]);
+    <?php foreach($orderItems as $sItem) {
+        $pItemId = $sItem->getParentItemId();
+        $item = Mage::getModel('sales/order_item')->load("$pItemId");
+        ?>
+        _ss.push(['_addTransactionItem', {
+            'transactionID': '<?php echo $sOrderId; ?>',
+            'itemCode': '<?php echo $sItem->getProductId() ?>',
+            'productName': '<?php echo $sItem->getName() ?>',
+            'category': '<?php echo $sItem->getProductType() ?>',
+            'price': '<?php echo $sItem->getPrice() ?>',
+            'quantity': '<?php echo intval($sItem->getQtyOrdered()) ?>'
+        }]);
+        <?php } ?>
+        _ss.push(['_completeTransaction', {
+            'transactionID': '<?php echo $sOrderId ?>'
+        }]);
+        </script>
+
+    <?php endif;?>

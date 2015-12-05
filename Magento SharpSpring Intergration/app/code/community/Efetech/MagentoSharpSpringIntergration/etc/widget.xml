@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<widgets>
+  <magentosharpspringintergration_form type="magentosharpspringintergration/form" translate="name description" module="magentosharpspringintergration">
+    <name>SharpSpring Form</name>
+    <description>SharpSpring Form</description>
+    <parameters>
+      <form_id>
+        <label>Form ID</label>
+        <visible>1</visible>
+        <required>1</required>
+        <type>text</type>
+      </form_id>
+      <template>
+        <values>
+          <default translate="label">
+            <label>SharpSpring Form</label>
+            <visible>1</visible>
+            <required>1</required>
+            <value>efetech/magentosharpspringintergration/sharpspringformwidget.phtml</value>
+            <label>SharpSpring Form</label>
+          </default>
+        </values>
+      </template>
+    </parameters>
+  </magentosharpspringintergration_form>
+</widgets>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Efetech_MagentoSharpSpringIntergration>
+      <version>0.1.0</version>
+    </Efetech_MagentoSharpSpringIntergration>
+  </modules>
+  <global>
+    <blocks>
+      <magentosharpspringintergration>
+        <class>Efetech_MagentoSharpSpringIntergration_Block</class>
+      </magentosharpspringintergration>
+    </blocks>
+    <helpers>
+      <magentosharpspringintergration>
+        <class>Efetech_MagentoSharpSpringIntergration_Helper</class>
+      </magentosharpspringintergration>
+    </helpers>
+  </global>
+  <adminhtml>
+    <acl>
+      <resources>
+        <all>
+          <title>Allow Everything</title>
+        </all>
+        <admin>
+          <children>
+            <system>
+              <children>
+                <config>
+                  <children>
+                    <efetech>
+                      <title>efetech - All</title>
+                    </efetech>
+                  </children>
+                </config>
+              </children>
+            </system>
+          </children>
+        </admin>
+      </resources>
+    </acl>
+  </adminhtml>
+</config> 

@@ -1,0 +1,14 @@
+<?php $account_id = Mage::getStoreConfig('efetech/general/account');?>
+<?php $form_account = Mage::getStoreConfig('efetech/sharp_spring_form/account');?>
+<?php $form_id = $this->getId(); ?>
+<?php $width = '100%'; ?>
+<?php $height = '1000'; ?>
+<!-- SharpSpring Form for Test  -->
+<script type="text/javascript">
+    var ss_form = {'account': '<?php echo $form_account ?>', 'formID': '<?php echo $form_id ?>'};
+    ss_form.width = '<?php echo $width ?>';
+    ss_form.height = '<?php echo $height ?>';
+    ss_form.domain = 'app-<?php echo $account_id ?>.sharpspring.com';
+    // ss_form.hidden = {'Company': 'Anon'}; // Modify this for sending hidden variables, or overriding values
+</script>
+<script type="text/javascript" src="https://koi-<?php echo $form_id ?>.sharpspring.com/client/form.js?ver=1.1.1"></script>
